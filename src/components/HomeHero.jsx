@@ -75,10 +75,13 @@ const CapabilityCard = ({ title, description, Icon, borderColors }) => (
   </div>
 );
 
+import { trackEvent } from '../utils/analytics';
+
 const HeroButtons = () => (
   <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
     <a
       href="#projects"
+      onClick={() => trackEvent("CTA", "Click", "View Projects Hero")}
       id="hero-view-projects"
       className="group inline-flex h-12 items-center justify-center rounded-full px-6 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(99,102,241,0.35)]"
       style={{ background: 'var(--accent-grad)' }}
@@ -87,14 +90,26 @@ const HeroButtons = () => (
       <ArrowRight size={16} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
     </a>
 
-
     <a
       href="#contact"
+      onClick={() => trackEvent("CTA", "Click", "Contact Me Hero")}
       id="hero-contact"
       className="inline-flex h-12 items-center justify-center rounded-full border border-[var(--card-border)] bg-transparent px-6 text-sm font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--accent-1)] hover:bg-[var(--accent-soft)] hover:text-[var(--accent-1)]"
     >
       <Mail size={16} className="mr-2" />
       Contact Me
+    </a>
+
+    <a
+      href="/Jayasuriya_Resume.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={() => trackEvent("CTA", "Click", "Download Resume Hero")}
+      id="hero-resume"
+      className="inline-flex h-12 items-center justify-center rounded-full border border-[var(--card-border)] bg-transparent px-6 text-sm font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--accent-2)] hover:bg-[var(--accent-soft)] hover:text-[var(--accent-2)]"
+    >
+      <Download size={16} className="mr-2" />
+      Resume
     </a>
   </div>
 );

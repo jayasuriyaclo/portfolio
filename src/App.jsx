@@ -8,7 +8,13 @@ import Contact from './components/Contact';
 import ScrollIndicator from './components/ScrollIndicator';
 import './App.css';
 
+import React, { useEffect } from 'react';
+import { trackPageView } from './utils/analytics';
+
 function App() {
+  useEffect(() => {
+    trackPageView(window.location.pathname);
+  }, []);
   return (
     <>
       <Navbar />

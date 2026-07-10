@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Mail, MapPin, Send, MessageSquare, CheckCircle } from 'lucide-react';
-import { FaLinkedin } from 'react-icons/fa';
+import { FaLinkedin, FaGithub } from 'react-icons/fa';
 import { SiTryhackme } from 'react-icons/si';
+import { trackEvent } from '../utils/analytics';
 
 // ── Data ──────────────────────────────────────────────
 
@@ -22,6 +23,13 @@ const socialLinks = [
   },
   {
     id: 3,
+    label: 'GitHub',
+    icon: FaGithub,
+    href: 'https://github.com/jayasuriyaclo',
+    color: 'hover:bg-[#333333] hover:!text-white hover:border-[#333333]',
+  },
+  {
+    id: 4,
     label: 'Email',
     icon: Mail,
     href: 'mailto:jayasuriya03096@gmail.com',
@@ -44,6 +52,7 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    trackEvent("Contact", "Submit", "Contact Form");
 
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
@@ -172,6 +181,7 @@ const Contact = () => {
                   <a
                     key={id}
                     href={href}
+                    onClick={() => trackEvent("Social", "Click", label)}
                     id={`contact-social-${label.toLowerCase()}`}
                     target="_blank"
                     rel="noopener noreferrer"
