@@ -23,13 +23,6 @@ const socialLinks = [
   },
   {
     id: 3,
-    label: 'GitHub',
-    icon: FaGithub,
-    href: 'https://github.com/jayasuriyaclo',
-    color: 'hover:bg-[#333333] hover:!text-white hover:border-[#333333]',
-  },
-  {
-    id: 4,
     label: 'Email',
     icon: Mail,
     href: 'mailto:jayasuriya03096@gmail.com',
