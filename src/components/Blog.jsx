@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { BookOpen, Calendar, ArrowRight, ExternalLink } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { BookOpen, Calendar, ArrowRight, ExternalLink, Clock, Signal } from 'lucide-react';
 import { trackEvent } from '../utils/analytics';
 
 const Blog = () => {
@@ -8,37 +9,34 @@ const Blog = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const query = `
-        query Publication {
-          publication(host: "admincentre.hashnode.dev") {
-            posts(first: 3) {
-              edges {
-                node {
-                  id
-                  title
-                  brief
-                  url
-                  coverImage {
-                    url
-                  }
-                  publishedAt
-                }
-              }
-            }
-          }
-        }
-      `;
-
       try {
-        const response = await fetch('https://gql.hashnode.com/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ query }),
-        });
+        const response = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://admincentre.hashnode.dev/rss.xml');
         const result = await response.json();
-        setPosts(result.data?.publication?.posts?.edges || []);
+        if (result.status === 'ok') {
+          // Helper to calculate read time
+          const getReadTime = (htmlContent) => {
+            const text = (htmlContent || '').replace(/<[^>]+>/g, '');
+            const wordCount = text.split(/\s+/).filter(word => word.length > 0).length;
+            return Math.ceil(wordCount / 200);
+          };
+
+          // Transform RSS items to match our existing component structure
+          const formattedPosts = result.items.slice(0, 3).map(item => ({
+            node: {
+              id: item.guid,
+              title: item.title,
+              brief: item.description,
+              url: item.link,
+              coverImage: {
+                url: item.enclosure?.link || item.thumbnail
+              },
+              publishedAt: item.pubDate,
+              readTime: getReadTime(item.content),
+              difficulty: "Beginner"
+            }
+          }));
+          setPosts(formattedPosts);
+        }
       } catch (error) {
         console.error('Error fetching blog posts:', error);
       } finally {
@@ -51,7 +49,7 @@ const Blog = () => {
 
   if (loading) {
     return (
-      <section id="blog" className="py-24 px-5 sm:px-6 md:px-10 lg:px-14 flex justify-center" style={{ background: 'var(--color-bg)' }}>
+      <div className="min-h-screen pt-32 pb-24 px-5 sm:px-6 md:px-10 lg:px-14 flex justify-center" style={{ background: 'var(--color-bg)' }}>
          <div className="animate-pulse flex flex-col items-center gap-4 w-full max-w-7xl">
             <div className="h-8 w-48 bg-[var(--card-border)] rounded-none mb-10"></div>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 w-full">
@@ -60,14 +58,14 @@ const Blog = () => {
               ))}
             </div>
          </div>
-      </section>
+      </div>
     );
   }
 
   if (posts.length === 0) return null;
 
   return (
-    <section id="blog" className="relative overflow-hidden scroll-mt-20 md:scroll-mt-28 py-24 px-5 sm:px-6 md:px-10 lg:px-14" style={{ background: 'var(--color-bg)' }}>
+    <div className="relative min-h-screen pt-32 pb-24 px-5 sm:px-6 md:px-10 lg:px-14 overflow-hidden" style={{ background: 'var(--color-bg)' }}>
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--card-border)] to-transparent" />
       
       <div className="relative mx-auto max-w-7xl">
@@ -92,49 +90,69 @@ const Blog = () => {
               day: 'numeric',
               year: 'numeric'
             });
+            const slug = node.url.split('/').filter(Boolean).pop();
 
             return (
-              <a
-                key={node.id}
-                href={node.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackEvent("Blog", "Click", node.title)}
-                className="group relative flex flex-col overflow-hidden rounded-none border border-[var(--card-border)] bg-[var(--card-bg)] transition-all duration-300 hover:-translate-y-1 hover:border-[var(--accent-1)] hover:shadow-[0_12px_40px_rgba(99,102,241,0.12)]"
+              <Link 
+                key={node.id} 
+                to={`/blog/${slug}`}
+                className="group relative glass-card p-6 flex flex-col h-full hover:-translate-y-2 hover:shadow-[0_8px_32px_var(--accent-glow)] transition-all duration-300 cursor-pointer block"
               >
-                {/* Image */}
-                {node.coverImage?.url && (
-                  <div className="relative aspect-video w-full overflow-hidden border-b border-[var(--card-border)] bg-[var(--input-bg)]">
-                    <img
-                      src={node.coverImage.url}
-                      alt={node.title}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                
+                {/* Cover Image */}
+                {node.coverImage && node.coverImage.url && (
+                  <div className="relative h-48 -mx-6 -mt-6 mb-6 overflow-hidden border-b border-[var(--card-border)]">
+                    <img 
+                      src={node.coverImage.url} 
+                      alt={node.title} 
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--card-bg)] to-transparent opacity-60" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--card-bg)] to-transparent opacity-80" />
                   </div>
                 )}
 
-                {/* Content */}
-                <div className="flex flex-1 flex-col p-6">
-                  <div className="mb-3 flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[var(--accent-1)]">
-                    <Calendar size={13} />
-                    {date}
+                {/* Meta Info: Date, Read Time, Difficulty */}
+                <div className="flex flex-wrap items-center gap-3 text-[var(--accent-1)] text-[11px] font-bold uppercase tracking-wider mb-4">
+                  <div className="flex items-center gap-1.5">
+                    <Calendar size={14} />
+                    <span>{date}</span>
                   </div>
                   
-                  <h3 className="mb-3 text-[18px] font-black leading-snug text-white group-hover:text-[var(--accent-1)] transition-colors line-clamp-2" style={{ fontFamily: 'var(--font-head)' }}>
-                    {node.title}
-                  </h3>
+                  <div className="w-1 h-1 rounded-full bg-[var(--text-tertiary)] opacity-50" />
                   
-                  <p className="mb-6 text-[14px] leading-[1.7] text-white/50 line-clamp-3 flex-1">
-                    {node.brief}
-                  </p>
+                  <div className="flex items-center gap-1.5">
+                    <Clock size={14} />
+                    <span>{node.readTime} min read</span>
+                  </div>
 
-                  <div className="mt-auto flex items-center text-[12px] font-bold uppercase tracking-widest text-white/40 group-hover:text-[var(--accent-1)] transition-colors">
-                    Read Article
-                    <ExternalLink size={14} className="ml-2" />
+                  <div className="w-1 h-1 rounded-full bg-[var(--text-tertiary)] opacity-50" />
+
+                  <div className="flex items-center gap-1.5 text-[var(--accent-1)]">
+                    <Signal size={14} />
+                    <span>{node.difficulty}</span>
                   </div>
                 </div>
-              </a>
+
+                {/* Title */}
+                <h3 className="text-[19px] font-bold mb-3 text-white leading-snug group-hover:text-[var(--accent-1)] transition-colors">
+                  {node.title}
+                </h3>
+
+                {/* Excerpt */}
+                <p className="text-[var(--text-secondary)] text-sm mb-6 line-clamp-3">
+                  {node.brief}
+                </p>
+
+                {/* Link (now just a visual indicator since the whole card is a Link) */}
+                <div className="mt-auto pt-4 border-t border-[var(--divider)]">
+                  <span 
+                    className="inline-flex items-center gap-2 text-[12px] font-bold uppercase tracking-widest text-[var(--text-secondary)] group-hover:text-[var(--accent-1)] transition-colors"
+                  >
+                    Read Article 
+                    <ArrowRight size={14} className="transform group-hover:translate-x-1 transition-transform" />
+                  </span>
+                </div>
+              </Link>
             );
           })}
         </div>
@@ -152,7 +170,7 @@ const Blog = () => {
           </a>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

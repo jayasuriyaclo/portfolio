@@ -1,13 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import logo from '../assets/LOGO.png';
 
 const navItems = [
-  { id: 1, text: 'Home',     href: '#home' },
-  { id: 2, text: 'About',    href: '#about' },
-  { id: 3, text: 'Skills',   href: '#skills' },
-  { id: 4, text: 'Projects', href: '#projects' },
-  { id: 5, text: 'Contact',  href: '#contact' },
+  { id: 1, text: 'Home',     href: '/#home' },
+  { id: 2, text: 'About',    href: '/#about' },
+  { id: 3, text: 'Skills',   href: '/#skills' },
+  { id: 4, text: 'Projects', href: '/#projects' },
+  { id: 5, text: 'Contact',  href: '/#contact' },
 ];
 
 const Navbar = () => {
@@ -17,6 +18,7 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState('home');
   const observerRef = useRef(null);
   const lastScrollY = useRef(0);
+  const location = useLocation();
 
   const handleNav = () => setNav((prev) => !prev);
 
@@ -41,7 +43,9 @@ const Navbar = () => {
 
   /* ── Active section spy ───────────────── */
   useEffect(() => {
-    const ids = navItems.map((i) => i.href.replace('#', ''));
+    if (location.pathname !== '/') return; // Only spy on home page
+
+    const ids = navItems.map((i) => i.href.replace('/#', ''));
     const targets = ids.map((id) => document.getElementById(id)).filter(Boolean);
 
     observerRef.current = new IntersectionObserver(
@@ -55,7 +59,7 @@ const Navbar = () => {
 
     targets.forEach((el) => observerRef.current.observe(el));
     return () => observerRef.current?.disconnect();
-  }, []);
+  }, [location.pathname]);
 
   return (
     <header
@@ -77,8 +81,8 @@ const Navbar = () => {
       <nav className="mx-auto flex h-20 md:h-28 w-full max-w-7xl items-center justify-between px-6 md:px-10 lg:px-14">
         
         {/* Logo */}
-        <a
-          href="#home"
+        <Link
+          to="/#home"
           id="nav-logo"
           className="shrink-0 transition-all duration-300 hover:opacity-80 hover:scale-[1.02]"
           aria-label="Jayasuriya — go to home"
@@ -89,16 +93,16 @@ const Navbar = () => {
             className="h-[4.5rem] w-auto md:h-24 object-contain object-left"
             style={{ filter: 'invert(1) contrast(1.2)', mixBlendMode: 'screen' }}
           />
-        </a>
+        </Link>
 
         {/* Desktop Nav Links */}
         <ul className="hidden items-center gap-1 md:flex" role="navigation" aria-label="Primary navigation">
           {navItems.map((item) => {
-            const isActive = activeSection === item.href.replace('#', '');
+            const isActive = location.pathname === '/' && activeSection === item.href.replace('/#', '');
             return (
               <li key={item.id}>
-                <a
-                  href={item.href}
+                <Link
+                  to={item.href}
                   className={`relative inline-block rounded-lg px-4 py-2 text-[15px] font-medium transition-all duration-300
                     after:absolute after:bottom-0.5 after:left-4 after:right-4 after:h-[1.5px] after:rounded-full
                     after:transition-all after:duration-300
@@ -113,7 +117,7 @@ const Navbar = () => {
                   onMouseLeave={(e) => { if (!isActive) e.currentTarget.style.color = 'var(--nav-text)'; }}
                 >
                   {item.text}
-                </a>
+                </Link>
               </li>
             );
           })}
@@ -122,13 +126,13 @@ const Navbar = () => {
         {/* Right side: Blog Button + Hamburger */}
         <div className="flex items-center gap-3 md:gap-5">
           {/* Distinct Blog Button */}
-          <a
-            href="#blog"
+          <Link
+            to="/blog"
             className="hidden md:inline-flex items-center justify-center rounded-full px-5 py-2 text-[13px] font-bold uppercase tracking-wider text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_20px_var(--accent-glow)]"
             style={{ background: 'var(--accent-grad)' }}
           >
             Blog
-          </a>
+          </Link>
 
           {/* Mobile Hamburger */}
           <button
@@ -163,21 +167,21 @@ const Navbar = () => {
       >
         <ul className="flex flex-col px-6 py-3">
           <li style={{ borderBottom: '1px solid var(--divider)' }}>
-            <a
-              href="#blog"
+            <Link
+              to="/blog"
               onClick={() => setNav(false)}
               className="flex items-center gap-2 py-4 text-[15px] font-bold uppercase tracking-wider transition-colors duration-200"
               style={{ color: 'var(--accent-1)' }}
             >
               Blog
-            </a>
+            </Link>
           </li>
           {navItems.map((item) => {
-            const isActive = activeSection === item.href.replace('#', '');
+            const isActive = location.pathname === '/' && activeSection === item.href.replace('/#', '');
             return (
               <li key={item.id} style={{ borderBottom: '1px solid var(--divider)' }} className="last:border-0">
-                <a
-                  href={item.href}
+                <Link
+                  to={item.href}
                   onClick={() => setNav(false)}
                   className="flex items-center gap-2 py-4 text-[15px] font-medium transition-colors duration-200"
                   style={{ color: isActive ? 'var(--accent-1)' : 'var(--nav-text)' }}
@@ -186,7 +190,7 @@ const Navbar = () => {
                     <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: 'var(--accent-1)' }} />
                   )}
                   {item.text}
-                </a>
+                </Link>
               </li>
             );
           })}
