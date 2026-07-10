@@ -126,13 +126,13 @@ const Contact = () => {
                   <span className="relative flex h-2 w-2">
                     <span className="relative inline-flex h-2 w-2 rounded-none bg-[var(--accent-1)]" />
                   </span>
-                  Currently Employed
+                  Open to Connect
                 </div>
                 <h3 className="text-2xl font-black">
-                  Working Full-Time
+                  Let's Connect
                 </h3>
                 <p className="mt-2 text-sm text-white/60 leading-[1.7]">
-                  I am currently working as a full-time employee, but my inbox is always open for networking or interesting discussions.
+                  My inbox is always open for networking or interesting discussions.
                 </p>
               </div>
             </div>

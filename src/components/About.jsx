@@ -34,7 +34,7 @@ const values = [
 // ── Sub-components ─────────────────────────────────────
 
 const ValueCard = ({ Icon, title, description }) => (
-  <div className="group rounded-none border border-[var(--card-border)] bg-[var(--card-bg)] p-5 shadow-[0_2px_12px_rgba(0,0,0,0.4)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_28px_var(--accent-glow)] hover:border-[var(--accent-1)]">
+  <div className="group h-full flex flex-col rounded-none border border-[var(--card-border)] bg-[var(--card-bg)] p-5 shadow-[0_2px_12px_rgba(0,0,0,0.4)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_28px_var(--accent-glow)] hover:border-[var(--accent-1)]">
     <div
       className="mb-3 flex h-9 w-9 items-center justify-center rounded-none text-white"
       style={{ background: 'var(--accent-grad)' }}
@@ -87,18 +87,17 @@ const About = () => {
             I'm <strong className="text-white font-bold">Jayasuriya</strong>, an IT Systems Administrator based in <strong className="text-white font-bold">Chennai, India</strong>. My journey into technology started with a fascination for how things connect — networks, identities, and systems — and that curiosity evolved into a deep passion for securing them.
           </p>
           <p className="mt-4 text-[15px] leading-[1.85] text-white/60">
-            I specialize in the <strong className="text-white font-bold">Microsoft security stack</strong> — from hardening Entra ID with Conditional Access and MFA to managing endpoints with Intune, monitoring threats with Defender, and administering the full Microsoft 365 suite.
+            As a <strong className="text-white font-bold">Cybersecurity enthusiast</strong>, I am actively exploring the Microsoft security stack — from hardening Entra ID with Conditional Access and MFA to managing endpoints with Intune, monitoring threats with Defender, and administering the full Microsoft 365 suite.
           </p>
           <p className="mt-4 text-[15px] leading-[1.85] text-white/60">
             My mission is simple: keep organizations secure, compliant, and productive — without compromising on user experience.
           </p>
 
           {/* Stats */}
-          <div className="mt-8 grid grid-cols-3 gap-4 border-t border-[var(--card-border)] pt-6">
+          <div className="mt-8 grid grid-cols-2 gap-4 border-t border-[var(--card-border)] pt-6">
             {[
               { value: '2+', label: 'Years in IT' },
               { value: '50+', label: 'Endpoints' },
-              { value: '3+', label: 'Certifications' },
             ].map(({ value, label }) => (
               <div key={label} className="text-center">
                 <p className="text-2xl font-black text-white" style={{ fontFamily: 'var(--font-head)', background: 'var(--accent-grad)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
@@ -130,10 +129,10 @@ const About = () => {
 
         {/* Core Values Grid */}
         <div className="mt-8">
-          <h3 className="mb-4 text-[13px] font-black uppercase tracking-[0.15em] text-white/35 text-center">Core Values</h3>
+          <h3 className="mb-4 text-[13px] font-black uppercase tracking-[0.15em] text-white/80 text-center">Core Values</h3>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             {values.map((v, i) => (
-              <PopUp key={v.id} delay={i * 150}>
+              <PopUp key={v.id} delay={i * 150} className="h-full">
                 <ValueCard {...v} />
               </PopUp>
             ))}

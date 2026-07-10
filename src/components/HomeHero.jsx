@@ -100,17 +100,6 @@ const HeroButtons = () => (
       Contact Me
     </a>
 
-    <a
-      href="/Jayasuriya_Resume.pdf"
-      target="_blank"
-      rel="noopener noreferrer"
-      onClick={() => trackEvent("CTA", "Click", "Download Resume Hero")}
-      id="hero-resume"
-      className="inline-flex h-12 items-center justify-center rounded-full border border-[var(--card-border)] bg-transparent px-6 text-sm font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--accent-2)] hover:bg-[var(--accent-soft)] hover:text-[var(--accent-2)]"
-    >
-      <Download size={16} className="mr-2" />
-      Resume
-    </a>
   </div>
 );
 
@@ -318,11 +307,10 @@ const HomeHero = () => {
 
           {/* Tagline */}
           <p className="mt-6 text-[1.1rem] font-semibold leading-[1.7] text-white/80">
-            Specializing in{' '}
+            Cybersecurity enthusiast exploring{' '}
             <span className="text-white">Microsoft 365</span>,{' '}
-            <span className="text-white">Azure</span>,{' '}
-            <span className="text-white">Entra ID</span>{' '}
-            & Cybersecurity.
+            <span className="text-white">Azure</span>, &{' '}
+            <span className="text-white">Entra ID</span>.
           </p>
 
           {/* Description */}

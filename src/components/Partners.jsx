@@ -2,7 +2,7 @@ import React from 'react';
 import tocumulusImg from '../assets/tocumulus.png';
 import shamsImg from '../assets/shams.jpg';
 
-const PartnerCard = ({ type, title, name, img, scale = 1, accentColor }) => (
+const PartnerCard = ({ type, title, name, img, scale = 1, innerScale = 1, accentColor, needsWhiteBg }) => (
   <div className="group relative rounded-none border border-[var(--card-border)] bg-[var(--card-bg)] p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-md)] flex flex-col justify-between h-[340px] overflow-hidden">
     {/* Subtle hover gradient */}
     <div 
@@ -19,13 +19,18 @@ const PartnerCard = ({ type, title, name, img, scale = 1, accentColor }) => (
       </h2>
     </div>
 
-    <div className="relative z-10 mt-auto flex h-14 w-full items-end justify-start opacity-70 transition-opacity duration-300 group-hover:opacity-100">
-      <img
-        src={img}
-        alt={name}
-        className="max-h-full max-w-[180px] object-contain"
-        style={{ transform: `scale(${scale})`, transformOrigin: 'left center' }}
-      />
+    <div className="relative z-10 mt-auto flex justify-start opacity-70 transition-opacity duration-300 group-hover:opacity-100">
+      <div 
+        className={`relative flex h-16 items-center justify-center overflow-hidden rounded-lg ${needsWhiteBg ? 'bg-white/95 shadow-sm px-4' : ''}`} 
+        style={{ minWidth: '160px', transform: `scale(${scale})`, transformOrigin: 'left center' }}
+      >
+        <img
+          src={img}
+          alt={name}
+          className="max-h-full object-contain"
+          style={{ transform: `scale(${innerScale})` }}
+        />
+      </div>
     </div>
   </div>
 );
@@ -49,16 +54,20 @@ const Partners = () => {
             title="Company I have had the privilege to work with."
             name="TOCUMULUS"
             img={tocumulusImg}
-            scale={1.2}
+            scale={1.1}
+            innerScale={1}
             accentColor="var(--accent-1)"
+            needsWhiteBg={true}
           />
           <PartnerCard
             type="Collaboration"
             title="A partner I've had the opportunity to collaborate with."
             name="Shams"
             img={shamsImg}
-            scale={2.8}
+            scale={1}
+            innerScale={2.5}
             accentColor="var(--accent-2)"
+            needsWhiteBg={true}
           />
         </div>
       </div>
