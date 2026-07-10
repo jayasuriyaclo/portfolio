@@ -4,6 +4,7 @@ import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Partners from './components/Partners';
+import Blog from './components/Blog';
 import Contact from './components/Contact';
 import ScrollIndicator from './components/ScrollIndicator';
 import './App.css';
@@ -24,6 +25,7 @@ function App() {
         <Skills />
         <Projects />
         <Partners />
+        <Blog />
         <Contact />
       </main>
       <ScrollIndicator />

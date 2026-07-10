@@ -119,8 +119,17 @@ const Navbar = () => {
           })}
         </ul>
 
-        {/* Right side: Toggle + Hamburger */}
-        <div className="flex items-center gap-3">
+        {/* Right side: Blog Button + Hamburger */}
+        <div className="flex items-center gap-3 md:gap-5">
+          {/* Distinct Blog Button */}
+          <a
+            href="#blog"
+            className="hidden md:inline-flex items-center justify-center rounded-full px-5 py-2 text-[13px] font-bold uppercase tracking-wider text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_4px_20px_var(--accent-glow)]"
+            style={{ background: 'var(--accent-grad)' }}
+          >
+            Blog
+          </a>
+
           {/* Mobile Hamburger */}
           <button
             type="button"
@@ -153,6 +162,16 @@ const Navbar = () => {
         aria-hidden={!nav}
       >
         <ul className="flex flex-col px-6 py-3">
+          <li style={{ borderBottom: '1px solid var(--divider)' }}>
+            <a
+              href="#blog"
+              onClick={() => setNav(false)}
+              className="flex items-center gap-2 py-4 text-[15px] font-bold uppercase tracking-wider transition-colors duration-200"
+              style={{ color: 'var(--accent-1)' }}
+            >
+              Blog
+            </a>
+          </li>
           {navItems.map((item) => {
             const isActive = activeSection === item.href.replace('#', '');
             return (
