@@ -259,7 +259,7 @@ const HomeHero = () => {
   return (
     <section
       id="home"
-      className="relative scroll-mt-20 md:scroll-mt-28 overflow-hidden px-5 pb-20 pt-10 sm:px-6 md:px-10 md:pb-28 md:pt-16 lg:px-14 lg:pt-20"
+      className="relative scroll-mt-20 md:scroll-mt-28 overflow-hidden px-5 pb-20 pt-28 sm:px-6 md:px-10 md:pb-28 md:pt-36 lg:px-14 lg:pt-40"
       style={{ background: 'var(--color-bg)' }}
     >
       {/* Particle network full background */}

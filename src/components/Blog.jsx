@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, Calendar, ArrowRight, ExternalLink, Clock, Signal } from 'lucide-react';
+import { BookOpen, Calendar, ArrowRight, ExternalLink, Clock, Signal, Search } from 'lucide-react';
 import { trackEvent } from '../utils/analytics';
 
 const Blog = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [visibleCount, setVisibleCount] = useState(6); // Show 6 posts initially
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -21,7 +23,7 @@ const Blog = () => {
           };
 
           // Transform RSS items to match our existing component structure
-          const formattedPosts = result.items.slice(0, 3).map(item => ({
+          const formattedPosts = result.items.map(item => ({
             node: {
               id: item.guid,
               title: item.title,
@@ -64,6 +66,15 @@ const Blog = () => {
 
   if (posts.length === 0) return null;
 
+  // Filter posts based on search query
+  const filteredPosts = posts.filter(({ node }) => {
+    const query = searchQuery.toLowerCase();
+    return (
+      node.title.toLowerCase().includes(query) ||
+      node.brief.toLowerCase().includes(query)
+    );
+  });
+
   return (
     <div className="relative min-h-screen pt-32 pb-24 px-5 sm:px-6 md:px-10 lg:px-14 overflow-hidden" style={{ background: 'var(--color-bg)' }}>
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--card-border)] to-transparent" />
@@ -78,14 +89,33 @@ const Blog = () => {
           <h2 className="text-4xl font-black tracking-[-0.03em] text-white sm:text-5xl" style={{ fontFamily: 'var(--font-head)' }}>
             From the Blog
           </h2>
-          <p className="mt-4 mx-auto max-w-2xl text-[16px] leading-[1.8] text-white/50 text-center">
+          <p className="mt-4 mb-8 mx-auto max-w-2xl text-[16px] leading-[1.8] text-white/50 text-center">
             Insights, tutorials, and deep dives into cybersecurity, cloud administration, and Microsoft 365.
           </p>
+
+          {/* Search Bar */}
+          <div className="relative w-full max-w-lg mx-auto group">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[var(--text-tertiary)] group-focus-within:text-[var(--accent-1)] transition-colors">
+              <Search size={18} />
+            </div>
+            <input
+              type="text"
+              placeholder="Search articles by title or keyword..."
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setVisibleCount(6); // Reset visible count on search
+              }}
+              className="w-full bg-[var(--input-bg)] border border-[var(--card-border)] text-white text-sm rounded-none pl-11 pr-4 py-3.5 focus:outline-none focus:border-[var(--accent-1)] focus:ring-1 focus:ring-[var(--accent-1)] transition-all placeholder:text-[var(--text-tertiary)]"
+            />
+          </div>
         </div>
 
+        {/* Blog Grid */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {posts.map(({ node }) => {
-            const date = new Date(node.publishedAt).toLocaleDateString('en-US', {
+          {filteredPosts.length > 0 ? (
+            filteredPosts.slice(0, visibleCount).map(({ node }) => {
+              const date = new Date(node.publishedAt).toLocaleDateString('en-US', {
               month: 'short',
               day: 'numeric',
               year: 'numeric'
@@ -154,21 +184,37 @@ const Blog = () => {
                 </div>
               </Link>
             );
-          })}
+          })
+        ) : (
+          <div className="col-span-full py-20 text-center">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[var(--input-bg)] border border-[var(--card-border)] text-[var(--text-tertiary)] mb-4">
+              <Search size={24} />
+            </div>
+            <h3 className="text-xl font-bold text-white mb-2">No articles found</h3>
+            <p className="text-[var(--text-secondary)] max-w-md mx-auto">
+              We couldn't find any articles matching "{searchQuery}". Try adjusting your search terms.
+            </p>
+            <button 
+              onClick={() => setSearchQuery('')}
+              className="mt-6 text-[13px] font-bold uppercase tracking-widest text-[var(--accent-1)] hover:text-[var(--accent-2)] transition-colors"
+            >
+              Clear Search
+            </button>
+          </div>
+        )}
         </div>
 
-        <div className="mt-12 flex justify-center">
-          <a
-            href="https://admincentre.hashnode.dev"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => trackEvent("CTA", "Click", "View All Posts")}
-            className="group inline-flex items-center gap-2 rounded-none border border-[var(--card-border)] bg-[var(--input-bg)] px-6 py-3 text-[13px] font-bold uppercase tracking-widest text-white transition-all duration-300 hover:border-[var(--accent-1)] hover:text-[var(--accent-1)]"
-          >
-            View All Posts
-            <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-          </a>
-        </div>
+        {filteredPosts.length > visibleCount && (
+          <div className="mt-12 flex justify-center">
+            <button
+              onClick={() => setVisibleCount(prev => prev + 6)}
+              className="group inline-flex items-center gap-2 rounded-none border border-[var(--card-border)] bg-[var(--input-bg)] px-6 py-3 text-[13px] font-bold uppercase tracking-widest text-white transition-all duration-300 hover:border-[var(--accent-1)] hover:text-[var(--accent-1)]"
+            >
+              Load More Posts
+              <ArrowRight size={16} className="transition-transform group-hover:translate-y-1 rotate-90" />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

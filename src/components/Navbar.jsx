@@ -63,7 +63,7 @@ const Navbar = () => {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-transform duration-500 ease-in-out ${
+      className={`fixed top-0 z-50 w-full transition-transform duration-500 ease-in-out ${
         hidden ? '-translate-y-full' : 'translate-y-0'
       } ${
         scrolled
@@ -166,12 +166,12 @@ const Navbar = () => {
         aria-hidden={!nav}
       >
         <ul className="flex flex-col px-6 py-3">
-          <li style={{ borderBottom: '1px solid var(--divider)' }}>
+          <li className="py-3" style={{ borderBottom: '1px solid var(--divider)' }}>
             <Link
               to="/blog"
               onClick={() => setNav(false)}
-              className="flex items-center gap-2 py-4 text-[15px] font-bold uppercase tracking-wider transition-colors duration-200"
-              style={{ color: 'var(--accent-1)' }}
+              className="flex items-center justify-center w-full gap-2 py-3 rounded-full text-[14px] font-bold uppercase tracking-wider transition-all duration-300 text-white shadow-md hover:shadow-lg"
+              style={{ background: 'var(--accent-grad)' }}
             >
               Blog
             </Link>

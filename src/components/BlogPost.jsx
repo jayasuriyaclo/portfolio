@@ -155,7 +155,7 @@ const BlogPost = () => {
 
         {/* Cover Image */}
         {coverImage && (
-          <div className="w-full h-[300px] md:h-[400px] mb-12 relative border border-[var(--card-border)] overflow-hidden">
+          <div className="w-full h-64 sm:h-[300px] md:h-[400px] mb-12 relative border border-[var(--card-border)] overflow-hidden">
             <img 
               src={coverImage} 
               alt={post.title}
@@ -166,7 +166,7 @@ const BlogPost = () => {
 
         {/* Content (HTML rendered using Tailwind Typography) */}
         <div 
-          className="prose prose-invert prose-orange max-w-none prose-img:border prose-img:border-[var(--card-border)] prose-a:text-[var(--accent-1)] hover:prose-a:text-[var(--accent-2)] prose-a:transition-colors prose-headings:font-bold prose-hr:border-[var(--card-border)]"
+          className="prose prose-invert prose-orange max-w-none prose-base lg:prose-lg prose-img:border prose-img:border-[var(--card-border)] prose-a:text-[var(--accent-1)] hover:prose-a:text-[var(--accent-2)] prose-a:transition-colors prose-headings:font-bold prose-hr:border-[var(--card-border)]"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
       </div>
