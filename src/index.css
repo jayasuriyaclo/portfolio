@@ -1,0 +1,286 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ── Design Tokens ──────────────────────────────────── */
+:root, html.dark {
+  --font-head: 'Inter', 'Poppins', sans-serif;
+  --font-body: 'Inter', 'Poppins', sans-serif;
+
+  --color-bg:       #0d0d0d;
+  --color-surface:  #171717;
+  --color-border:   rgba(255,255,255,0.08);
+  --color-text:     #ffffff;
+  --color-muted:    #a1a1a1;
+  --color-subtle:   #626262;
+
+  --accent-1:       #ea580c;
+  --accent-2:       #7c3aed;
+  --accent-grad:    linear-gradient(135deg, #ea580c, #c026d3);
+  --accent-soft:    rgba(234, 88, 12, 0.12);
+  --accent-glow:    rgba(234, 88, 12, 0.25);
+
+  --shadow-xs:      0 1px 3px rgba(0,0,0,0.5), 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-sm:      0 4px 12px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.3);
+  --shadow-md:      0 8px 28px rgba(0,0,0,0.6), 0 4px 12px rgba(0,0,0,0.3);
+  --shadow-lg:      0 24px 64px rgba(0,0,0,0.7), 0 8px 24px rgba(0,0,0,0.4);
+  --shadow-accent:  0 8px 32px rgba(234, 88, 12, 0.25);
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  /* Global specific overrides */
+  --card-bg: #151515;
+  --card-border: rgba(255,255,255,0.08);
+  --card-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  --input-bg: #1a1a1a;
+  --divider: rgba(255,255,255,0.08);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255,255,255,0.70);
+  --text-tertiary: rgba(255,255,255,0.45);
+  --nav-bg: rgba(13,13,13,0.92);
+  --nav-bg-clear: rgba(13,13,13,0.75);
+  --nav-border: rgba(255,255,255,0.08);
+  --nav-text: rgba(255,255,255,0.70);
+  --nav-text-hover: #ffffff;
+  --mobile-bg: rgba(20,20,20,0.97);
+  --scroll-thumb: rgba(255,255,255,0.15);
+  --scroll-thumb-hover: rgba(255,255,255,0.25);
+}
+
+html.dark body,
+html.dark #root {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* ── Reset & Base ────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  font-family: var(--font-body);
+  color: var(--color-text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-family: var(--font-head);
+  letter-spacing: -0.02em;
+}
+
+p { margin: 0; }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ── Keyframes ───────────────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.4); opacity: 0.5; }
+}
+
+@keyframes ping {
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+
+@keyframes blobFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(30px, -40px) scale(1.05); }
+  66%       { transform: translate(-20px, 20px) scale(0.96); }
+}
+
+@keyframes blobFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(-25px, 30px) scale(1.04); }
+  66%       { transform: translate(20px, -15px) scale(0.97); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes wave {
+  0%, 100% { transform: rotate(0deg); }
+  15%       { transform: rotate(14deg); }
+  30%       { transform: rotate(-8deg); }
+  45%       { transform: rotate(14deg); }
+  60%       { transform: rotate(-4deg); }
+}
+
+@keyframes progressLoad {
+  0%   { width: 0%; }
+  100% { width: var(--target-width, 78%); }
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+
+@keyframes popUpReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── Utility Animations ──────────────────────────────── */
+.animate-fade-in-up {
+  animation: fadeInUp 0.7s ease forwards;
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+  display: flex;
+  white-space: nowrap;
+}
+
+.animate-float {
+  animation: floatY 6s ease-in-out infinite;
+}
+
+.animate-blob-1 {
+  animation: blobFloat1 18s ease-in-out infinite;
+}
+
+.animate-blob-2 {
+  animation: blobFloat2 22s ease-in-out infinite;
+}
+
+.reveal-pop {
+  opacity: 0;
+}
+
+.reveal-pop.in-view {
+  animation: popUpReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ── Section Base ────────────────────────────────────── */
+.section-base {
+  padding: 96px 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .section-base {
+    padding: 64px 20px;
+  }
+}
+
+/* ── Section Label ───────────────────────────────────── */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent-1);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-glow);
+  padding: 6px 14px;
+  border-radius: 0;
+  margin-bottom: 20px;
+}
+
+/* ── Gradient Text ───────────────────────────────────── */
+.gradient-text {
+  background: var(--accent-grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Glass Card ──────────────────────────────────────── */
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow-md);
+  border-radius: 0; /* Brutalist aesthetic */
+}
+
+/* ── Scrollbar ───────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scroll-thumb);
+  border-radius: 100px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scroll-thumb-hover);
+}
