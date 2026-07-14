@@ -2,18 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen, Calendar, ArrowRight, ExternalLink, Clock, Signal, Search } from 'lucide-react';
 import { trackEvent } from '../utils/analytics';
+import { fetchHashnodePosts } from '../utils/hashnode';
 
 const Blog = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [visibleCount, setVisibleCount] = useState(6); // Show 6 posts initially
   const [searchQuery, setSearchQuery] = useState('');
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://admincentre.hashnode.dev/rss.xml');
-        const result = await response.json();
+        const result = await fetchHashnodePosts();
         if (result.status === 'ok') {
           // Helper to calculate read time
           const getReadTime = (htmlContent) => {
@@ -39,8 +40,9 @@ const Blog = () => {
           }));
           setPosts(formattedPosts);
         }
-      } catch (error) {
-        console.error('Error fetching blog posts:', error);
+      } catch (err) {
+        console.error('Error fetching blog posts:', err);
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -60,6 +62,21 @@ const Blog = () => {
               ))}
             </div>
          </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen pt-32 pb-24 px-5 sm:px-6 md:px-10 flex flex-col items-center justify-center text-center" style={{ background: 'var(--color-bg)' }}>
+        <h3 className="text-xl font-bold text-white mb-2">Oops! Something went wrong</h3>
+        <p className="text-[var(--text-secondary)] mb-6">We couldn't load the latest articles. Please try again later.</p>
+        <button 
+          onClick={() => window.location.reload()}
+          className="px-6 py-2 border border-[var(--card-border)] bg-[var(--input-bg)] hover:border-[var(--accent-1)] hover:text-[var(--accent-1)] transition-colors text-sm uppercase tracking-widest font-bold"
+        >
+          Refresh Page
+        </button>
       </div>
     );
   }

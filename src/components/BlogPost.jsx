@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Calendar, Clock, Signal } from 'lucide-react';
+import { fetchHashnodePosts } from '../utils/hashnode';
 
 const BlogPost = () => {
   const { slug } = useParams();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://admincentre.hashnode.dev/rss.xml');
-        const result = await response.json();
+        const result = await fetchHashnodePosts();
         
         if (result.status === 'ok') {
           // Find the specific post by matching the slug from the URL
@@ -22,8 +23,9 @@ const BlogPost = () => {
           
           setPost(foundPost);
         }
-      } catch (error) {
-        console.error('Error fetching blog post:', error);
+      } catch (err) {
+        console.error('Error fetching blog post:', err);
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -80,6 +82,21 @@ const BlogPost = () => {
             <div className="h-4 w-4/6 bg-[var(--card-border)]"></div>
           </div>
         </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen pt-32 pb-24 flex flex-col items-center justify-center text-center px-5" style={{ background: 'var(--color-bg)' }}>
+        <h1 className="text-3xl font-bold mb-4">Error Loading Post</h1>
+        <p className="text-[var(--text-secondary)] mb-8">There was a problem loading this article. Please try again.</p>
+        <button onClick={() => window.location.reload()} className="px-6 py-2 border border-[var(--card-border)] bg-[var(--input-bg)] hover:border-[var(--accent-1)] hover:text-[var(--accent-1)] transition-colors text-sm font-bold uppercase tracking-widest mb-4">
+          Refresh Page
+        </button>
+        <Link to="/blog" className="text-sm font-bold uppercase tracking-widest text-[var(--accent-1)] hover:text-[var(--accent-2)] transition-colors">
+          Back to Blog
+        </Link>
       </div>
     );
   }
