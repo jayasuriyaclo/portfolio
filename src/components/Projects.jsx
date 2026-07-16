@@ -109,7 +109,7 @@ const ProjectCard = ({ project }) => {
               >
                 {value}
               </p>
-              <p className="text-[11px] text-white/40 font-bold uppercase tracking-wider mt-0.5">{label}</p>
+              <p className="text-[11px] text-white/70 font-bold uppercase tracking-wider mt-0.5">{label}</p>
             </div>
           ))}
         </div>

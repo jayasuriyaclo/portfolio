@@ -244,7 +244,7 @@ img {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  color: var(--accent-1);
+  color: #ff9d66;
   background: var(--accent-soft);
   border: 1px solid var(--accent-glow);
   padding: 6px 14px;

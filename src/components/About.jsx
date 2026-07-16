@@ -103,7 +103,7 @@ const About = () => {
                 <p className="text-2xl font-black text-white" style={{ fontFamily: 'var(--font-head)', background: 'var(--accent-grad)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                   {value}
                 </p>
-                <p className="mt-1 text-[12px] font-semibold text-white/45">{label}</p>
+                <p className="mt-1 text-[12px] font-semibold text-white/70">{label}</p>
               </div>
             ))}
           </div>
@@ -114,14 +114,14 @@ const About = () => {
           <div className="flex items-center gap-3 rounded-none border border-[var(--card-border)] bg-[var(--card-bg)] p-4 shadow-[var(--shadow-xs)]">
             <MapPin size={18} className="text-[var(--accent-1)]" />
             <div>
-              <p className="text-[12px] text-white/40">Location</p>
+              <p className="text-[12px] text-white/70">Location</p>
               <p className="text-[14px] font-bold text-white">Chennai, India</p>
             </div>
           </div>
           <div className="flex items-center gap-3 rounded-none border border-[var(--card-border)] bg-[var(--card-bg)] p-4 shadow-[var(--shadow-xs)]">
             <GraduationCap size={18} className="text-[var(--accent-1)]" />
             <div>
-              <p className="text-[12px] text-white/40">Education</p>
+              <p className="text-[12px] text-white/70">Education</p>
               <p className="text-[14px] font-bold text-white">B.Tech Information Technology</p>
             </div>
           </div>
