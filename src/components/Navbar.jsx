@@ -89,6 +89,7 @@ const Navbar = () => {
           <img
             src="/logo.webp"
             alt="JS logo"
+            fetchPriority="high"
             className="h-[4.5rem] w-auto md:h-24 object-contain object-left"
             style={{ filter: 'invert(1) contrast(1.2)', mixBlendMode: 'screen' }}
           />
