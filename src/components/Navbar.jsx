@@ -156,13 +156,12 @@ const Navbar = () => {
       <div
         id="mobile-menu"
         className={`overflow-hidden border-t backdrop-blur-xl transition-all duration-500 ease-in-out md:hidden ${
-          nav ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          nav ? 'max-h-96 opacity-100 visible' : 'max-h-0 opacity-0 invisible'
         }`}
         style={{
           borderColor: 'var(--divider)',
           backgroundColor: 'var(--mobile-bg)',
         }}
-        aria-hidden={!nav}
       >
         <ul className="flex flex-col px-6 py-3">
           <li className="py-3" style={{ borderBottom: '1px solid var(--divider)' }}>

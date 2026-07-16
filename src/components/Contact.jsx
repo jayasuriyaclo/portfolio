@@ -181,7 +181,7 @@ const Contact = () => {
                     className={`flex w-[110px] flex-col items-center gap-1 rounded-none border border-[var(--card-border)] bg-[var(--input-bg)] py-2 text-white/60 transition-all duration-300 ${color} hover:-translate-y-0.5 hover:border-[var(--accent-1)]`}
                     aria-label={label}
                   >
-                    <Icon size={17} />
+                    <Icon size={17} aria-hidden="true" focusable="false" />
                     <span className="text-[11px] font-bold uppercase tracking-widest mt-1">{label}</span>
                   </a>
                 ))}
