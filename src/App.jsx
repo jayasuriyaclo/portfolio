@@ -6,12 +6,13 @@ import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Partners from './components/Partners';
-import Blog from './components/Blog';
-import BlogPost from './components/BlogPost';
 import Contact from './components/Contact';
 import ScrollIndicator from './components/ScrollIndicator';
 import './App.css';
 import { trackPageView } from './utils/analytics';
+
+const Blog = React.lazy(() => import('./components/Blog'));
+const BlogPost = React.lazy(() => import('./components/BlogPost'));
 
 // Take manual control of scroll restoration so the browser doesn't try to guess
 if ('scrollRestoration' in window.history) {
@@ -62,11 +63,13 @@ function App() {
       <RouteHandler />
       <Navbar />
       <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
-        </Routes>
+        <React.Suspense fallback={<div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading...</div>}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
+          </Routes>
+        </React.Suspense>
         <Contact />
       </main>
       <ScrollIndicator />
