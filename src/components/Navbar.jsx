@@ -169,6 +169,7 @@ const Navbar = () => {
             <Link
               to="/blog"
               onClick={() => setNav(false)}
+              tabIndex={!nav ? -1 : 0}
               className="flex items-center justify-center w-full gap-2 py-3 rounded-full text-[14px] font-bold uppercase tracking-wider transition-all duration-300 text-white shadow-md hover:shadow-lg"
               style={{ background: 'var(--accent-grad)' }}
             >
@@ -182,6 +183,7 @@ const Navbar = () => {
                 <Link
                   to={item.href}
                   onClick={() => setNav(false)}
+                  tabIndex={!nav ? -1 : 0}
                   className="flex items-center gap-2 py-4 text-[15px] font-medium transition-colors duration-200"
                   style={{ color: isActive ? 'var(--accent-1)' : 'var(--nav-text)' }}
                 >
