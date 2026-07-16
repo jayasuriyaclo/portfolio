@@ -5,8 +5,8 @@ const Header = () => {
     <header className="header">
       <div className="container">
         <div className="logo">
-          JOSEPH LUDWIG
-          <span>WWW.JOSEPHLUDWIG.COM</span>
+          JAYASURIYA
+          <span>WWW.JAYASURIYA.COM</span>
         </div>
         <nav className="nav">
           <a href="#home" className="nav-link">Home</a>

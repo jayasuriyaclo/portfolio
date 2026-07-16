@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 :root {
   --bg-dark: #0f172a;
@@ -110,7 +109,7 @@ a:hover {
   min-height: 80vh;
   display: flex;
   align-items: center;
-  background-image: url('/hero-bg.png');
+  background-image: url('/hero-bg.webp');
   background-size: cover;
   background-position: center;
 }
