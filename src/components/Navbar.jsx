@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import logo from '../assets/LOGO.png';
 
 const navItems = [
   { id: 1, text: 'Home',     href: '/#home' },
@@ -88,7 +87,7 @@ const Navbar = () => {
           aria-label="Jayasuriya — go to home"
         >
           <img
-            src={logo}
+            src="/logo.webp"
             alt="JS logo"
             className="h-[4.5rem] w-auto md:h-24 object-contain object-left"
             style={{ filter: 'invert(1) contrast(1.2)', mixBlendMode: 'screen' }}

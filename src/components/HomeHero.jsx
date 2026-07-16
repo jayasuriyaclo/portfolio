@@ -9,7 +9,6 @@ import {
   LayoutGrid,
   Sparkles,
 } from 'lucide-react';
-import heroPhoto from '../assets/Jayasuriya_Prof.PNG';
 import SecurityAnalysisWidget from './SecurityAnalysisWidget';
 
 // ── Data ──────────────────────────────────────────────
@@ -111,7 +110,7 @@ const ProfileCard = () => (
         {/* Image Section */}
         <div className="relative aspect-[4/5] w-full overflow-hidden bg-[var(--color-surface)]">
           <img
-            src={heroPhoto}
+            src="/jayasuriya_prof.webp"
             alt="Jayasuriya portrait"
             className="h-full w-full object-cover transition-transform duration-500 hover:scale-[1.15]"
             style={{ objectPosition: '50% 30%', transform: 'scale(1.12)', transformOrigin: '50% 30%' }}
