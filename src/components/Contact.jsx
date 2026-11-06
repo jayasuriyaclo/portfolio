@@ -103,7 +103,7 @@ const Contact = () => {
             Let's Work Together
           </h2>
           <p className="mt-4 mx-auto max-w-2xl text-[16px] leading-[1.8] text-white/50 text-center">
-            Whether you have a role in mind, a project to discuss, or just want to connect — my inbox is always open.
+            Message me about a role, a project, or a question.
           </p>
         </div>
 
@@ -132,7 +132,7 @@ const Contact = () => {
                   Let's Connect
                 </h3>
                 <p className="mt-2 text-sm text-white/60 leading-[1.7]">
-                  My inbox is always open for networking or interesting discussions.
+                  I'm open to IT and security roles, and happy to talk shop with other admins.
                 </p>
               </div>
             </div>
@@ -205,7 +205,7 @@ const Contact = () => {
                   Message Sent!
                 </h3>
                 <p className="mt-3 max-w-xs text-sm leading-[1.75] font-semibold text-white/60">
-                  Thanks for reaching out, {submittedName}! I'll get back to you within 24–48 hours.
+                  Thanks, {submittedName}. I'll reply within 24 to 48 hours.
                 </p>
                 <button
                   onClick={() => { setSubmitted(false); setForm({ name: '', email: '', subject: '', message: '' }); }}

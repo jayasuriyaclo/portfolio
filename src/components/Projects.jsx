@@ -10,7 +10,7 @@ const projects = [
     title: 'Microsoft 365 Tenant Hardening',
     category: 'Security & Compliance',
     description:
-      'Comprehensive security hardening of an M365 tenant for a mid-sized organization — implemented Conditional Access policies, MFA enforcement, Secure Score improvements, and compliance baselines following Microsoft best practices.',
+      'Hardened the Microsoft 365 tenant of a mid-sized organization. I wrote Conditional Access policies, enforced MFA, applied Microsoft compliance baselines and raised Secure Score to 87%.',
     tags: ['Entra ID', 'Conditional Access', 'MFA', 'Secure Score', 'Compliance'],
     Icon: Key,
     accentColor: 'var(--accent-1)',
@@ -25,7 +25,7 @@ const projects = [
     title: 'Zero Trust Endpoint Management',
     category: 'Endpoint Security',
     description:
-      'Deployed and configured Microsoft Intune for full MDM/MAM coverage across Windows, iOS, and Android devices. Implemented compliance policies, device configuration profiles, and automated remediation.',
+      'Rolled out Microsoft Intune for MDM and MAM on Windows, iOS and Android. I set up compliance policies, configuration profiles and remediation scripts, and new devices enroll through Autopilot in under an hour.',
     tags: ['Intune', 'MDM', 'MAM', 'Autopilot', 'Compliance'],
     Icon: Shield,
     accentColor: 'var(--accent-2)',
@@ -40,7 +40,7 @@ const projects = [
     title: 'Defender XDR Threat Response',
     category: 'Threat Detection',
     description:
-      'Built a structured threat hunting and incident response workflow using Microsoft Defender XDR. Created custom KQL queries for proactive threat hunting, alert correlation rules, and automated response playbooks.',
+      'Built a threat hunting and incident response process in Microsoft Defender XDR. I wrote KQL hunting queries, alert correlation rules and automated response playbooks.',
     tags: ['Defender XDR', 'KQL', 'SIEM', 'Threat Hunting', 'IR Playbooks'],
     Icon: Cloud,
     accentColor: 'var(--accent-3)',
@@ -149,7 +149,7 @@ const Projects = () => {
             What I've Built
           </h2>
           <p className="mt-4 mx-auto max-w-2xl text-[16px] leading-[1.8] text-white/50">
-            Real-world implementations across identity security, endpoint management, and threat detection.
+            Three projects from my work in identity security, endpoint management and threat detection.
           </p>
         </div>
 

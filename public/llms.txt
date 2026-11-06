@@ -1,6 +1,6 @@
 # Jayasuriya - Portfolio
 
-I am Jayasuriya, an IT Systems Administrator based in Chennai, India, specializing in cybersecurity and modern endpoint management.
+I am Jayasuriya, an IT Systems Administrator in Chennai, India. I work on Microsoft 365 security, Entra ID and device management with Intune.
 
 ## Sitemap Links
 - [Home](/)

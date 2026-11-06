@@ -51,7 +51,7 @@ const Partners = () => {
         <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
           <PartnerCard
             type="Experience"
-            title="Company I have had the privilege to work with."
+            title="A company I have worked with."
             name="TOCUMULUS"
             img={tocumulusImg}
             scale={1.1}
@@ -61,7 +61,7 @@ const Partners = () => {
           />
           <PartnerCard
             type="Collaboration"
-            title="A partner I've had the opportunity to collaborate with."
+            title="A partner I have collaborated with."
             name="Shams"
             img={shamsImg}
             scale={1}

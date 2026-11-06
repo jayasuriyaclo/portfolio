@@ -118,7 +118,7 @@ const Skills = () => {
             My Expertise
           </h2>
           <p className="mt-4 mx-auto max-w-2xl text-[16px] leading-[1.8] text-white/50 text-center">
-            Proficiency across the Microsoft security ecosystem, built through hands-on experience and continuous learning.
+            The Microsoft 365 and security tools I use at work, and how well I know each one.
           </p>
         </div>
 

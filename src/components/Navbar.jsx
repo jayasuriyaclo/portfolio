@@ -84,7 +84,7 @@ const Navbar = () => {
           to="/#home"
           id="nav-logo"
           className="shrink-0 transition-all duration-300 hover:opacity-80 hover:scale-[1.02]"
-          aria-label="Jayasuriya — go to home"
+          aria-label="Jayasuriya, go to home"
         >
           <img
             src="/logo.webp"

@@ -107,7 +107,7 @@ const Blog = () => {
             From the Blog
           </h2>
           <p className="mt-4 mb-8 mx-auto max-w-2xl text-[16px] leading-[1.8] text-white/50 text-center">
-            Insights, tutorials, and deep dives into cybersecurity, cloud administration, and Microsoft 365.
+            Write-ups and how-tos on cybersecurity, cloud administration and Microsoft 365.
           </p>
 
           {/* Search Bar */}

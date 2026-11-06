@@ -9,25 +9,25 @@ const values = [
     id: 1,
     Icon: Lock,
     title: 'Security First',
-    description: 'Every configuration and decision starts with security as the foundation, not an afterthought.',
+    description: 'Before I change a setting, I check what it does to security.',
   },
   {
     id: 2,
     Icon: Zap,
-    title: 'Proactive by Nature',
-    description: 'I hunt threats and fix vulnerabilities before they become incidents.',
+    title: 'Proactive',
+    description: 'I patch vulnerabilities and review alerts before they turn into incidents.',
   },
   {
     id: 3,
     Icon: BookOpen,
-    title: 'Continuous Learner',
-    description: 'The threat landscape evolves daily — I stay ahead through constant study and hands-on practice.',
+    title: 'Always Learning',
+    description: 'I work through TryHackMe rooms to keep up with new attack techniques.',
   },
   {
     id: 4,
     Icon: Users,
     title: 'Team-Oriented',
-    description: 'Great security is collaborative. I document thoroughly and communicate clearly across teams.',
+    description: 'I write down what I changed and why, so the next admin can follow it.',
   },
 ];
 
@@ -66,7 +66,7 @@ const About = () => {
             Who I Am
           </h2>
           <p className="mt-4 mx-auto max-w-2xl text-[16px] leading-[1.8] text-white/50 text-center">
-            A passionate IT professional dedicated to keeping organizations secure and productive in the Microsoft cloud ecosystem.
+            IT administrator working in Microsoft 365 and Azure, mostly on identity and device security.
           </p>
         </div>
 
@@ -84,13 +84,13 @@ const About = () => {
             </h3>
           </div>
           <p className="text-[15px] leading-[1.85] text-white/60">
-            I'm <strong className="text-white font-bold">Jayasuriya</strong>, an IT Systems Administrator based in <strong className="text-white font-bold">Chennai, India</strong>. My journey into technology started with a fascination for how things connect — networks, identities, and systems — and that curiosity evolved into a deep passion for securing them.
+            I'm <strong className="text-white font-bold">Jayasuriya</strong>, an IT Systems Administrator based in <strong className="text-white font-bold">Chennai, India</strong>. I got into IT because I wanted to know how networks and user accounts connect. Now I spend most of my time locking them down.
           </p>
           <p className="mt-4 text-[15px] leading-[1.85] text-white/60">
-            As a <strong className="text-white font-bold">Cybersecurity enthusiast</strong>, I am actively exploring the Microsoft security stack — from hardening Entra ID with Conditional Access and MFA to managing endpoints with Intune, monitoring threats with Defender, and administering the full Microsoft 365 suite.
+            My work is in the <strong className="text-white font-bold">Microsoft security stack</strong>. I configure Conditional Access and MFA in Entra ID, manage devices with Intune, watch for threats in Defender, and administer Exchange Online, Teams and SharePoint.
           </p>
           <p className="mt-4 text-[15px] leading-[1.85] text-white/60">
-            My mission is simple: keep organizations secure, compliant, and productive — without compromising on user experience.
+            My goal is to tighten security without making anyone's daily work harder.
           </p>
 
           {/* Stats */}

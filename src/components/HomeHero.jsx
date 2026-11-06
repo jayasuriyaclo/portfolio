@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import {
   ShieldCheck,
   Cloud,
@@ -31,7 +31,7 @@ const capabilities = [
   {
     id: 3,
     title: 'Threat Protection',
-    description: 'Microsoft Defender monitoring, alert triage, threat hunting and rapid incident response.',
+    description: 'Microsoft Defender monitoring, alert triage, threat hunting and incident response.',
     Icon: ShieldCheck,
     borderColors: 'from-[#8400ff] via-[#ff4b17] to-[#8400ff]'
   },
@@ -109,11 +109,17 @@ const ProfileCard = () => (
 
         {/* Image Section */}
         <div className="relative aspect-[4/5] w-full overflow-hidden bg-[var(--color-surface)]">
+          {/* Accent glow behind the transparent cutout */}
+          <div
+            className="pointer-events-none absolute inset-0"
+            aria-hidden="true"
+            style={{ background: 'radial-gradient(ellipse 70% 55% at 50% 45%, var(--accent-glow) 0%, transparent 70%)' }}
+          />
           <img
             src="/jayasuriya_prof.webp"
             alt="Jayasuriya portrait"
-            className="h-full w-full object-cover transition-transform duration-500 hover:scale-[1.15]"
-            style={{ objectPosition: '50% 30%', transform: 'scale(1.12)', transformOrigin: '50% 30%' }}
+            className="relative h-full w-full object-cover transition-transform duration-500 hover:scale-[1.04]"
+            style={{ objectPosition: '50% 0%', transformOrigin: '50% 100%' }}
           />
         </div>
 
@@ -156,91 +162,6 @@ const ProfileCard = () => (
   </div>
 );
 
-// ── Particle Network Canvas ────────────────────────────
-
-const ParticleNetwork = () => {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let animId;
-
-    const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    };
-    resize();
-    window.addEventListener('resize', resize);
-
-    const COUNT = 38;
-    const LINK_D = 130;
-
-    const particles = Array.from({ length: COUNT }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.35,
-      vy: (Math.random() - 0.5) * 0.35,
-      r: Math.random() * 1.8 + 1.2,
-    }));
-
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particles.forEach((p) => {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-      });
-
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < LINK_D) {
-            const alpha = (1 - dist / LINK_D) * 0.15;
-            ctx.strokeStyle = `rgba(37,99,235,${alpha})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-          }
-        }
-      }
-
-      particles.forEach((p) => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(37,99,235,0.5)';
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r + 2.5, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(37,99,235,0.07)';
-        ctx.fill();
-      });
-
-      animId = requestAnimationFrame(draw);
-    };
-
-    draw();
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener('resize', resize);
-    };
-  }, []);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="pointer-events-none absolute inset-0 h-full w-full"
-    />
-  );
-};
-
 // ── Main Component ─────────────────────────────────────
 
 const HomeHero = () => {
@@ -250,11 +171,6 @@ const HomeHero = () => {
       className="relative scroll-mt-20 md:scroll-mt-28 overflow-hidden px-5 pb-20 pt-28 sm:px-6 md:px-10 md:pb-28 md:pt-36 lg:px-14 lg:pt-40"
       style={{ background: 'var(--color-bg)' }}
     >
-      {/* Particle network full background */}
-      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
-        <ParticleNetwork />
-      </div>
-
       {/* Background decoration blobs */}
       <div
         className="pointer-events-none absolute -top-40 -right-40 h-[600px] w-[600px] rounded-full opacity-20"
@@ -306,15 +222,15 @@ const HomeHero = () => {
 
           {/* Tagline */}
           <p className="mt-6 text-[1.1rem] font-semibold leading-[1.7] text-white/80">
-            Cybersecurity enthusiast exploring{' '}
+            I run{' '}
             <span className="text-white">Microsoft 365</span>,{' '}
-            <span className="text-white">Azure</span>, &{' '}
-            <span className="text-white">Entra ID</span>.
+            <span className="text-white">Azure</span> and{' '}
+            <span className="text-white">Entra ID</span>, with a focus on security.
           </p>
 
           {/* Description */}
           <p className="mt-3 text-[0.95rem] leading-[1.75] text-white/50">
-            I secure identities, protect endpoints, hunt threats, and build resilient cloud environments for modern organizations.
+            I set up Conditional Access and MFA in Entra ID, keep devices compliant in Intune, and work through alerts in Defender.
           </p>
 
           <HeroButtons />
